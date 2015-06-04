@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'); //ORM
 var Recipe = require('./app/models/models.recipe');
 var User = require('./app/models/models.user');
 var routes = require('./app/routes');

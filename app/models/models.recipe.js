@@ -8,6 +8,10 @@ var RecipeSchema = new Schema({
   name: {
     type: String
   },
+  approved: {
+    type: Boolean,
+    default: false
+  },
   category: {
     type: String
   },
@@ -23,7 +27,10 @@ var RecipeSchema = new Schema({
   method: [{
     type: String
   }],
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 module.exports = mongoose.model('Recipe', RecipeSchema);

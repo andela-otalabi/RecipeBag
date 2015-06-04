@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 /**
- * [UserSchema description]
+ * [UserSchema describes the user collection]
  * @type {Schema}
  */
 var UserSchema = new Schema({

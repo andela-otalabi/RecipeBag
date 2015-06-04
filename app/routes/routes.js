@@ -20,4 +20,7 @@ module.exports = function(router) {
     .get(Recipes.getOneRecipe)
     .put(Recipes.updateRecipe)
     .delete(Recipes.deleteRecipe);
+
+  router.route('/recipes/:recipe_id/approve')
+    .put(Recipes.approveRecipe);
 };
