@@ -4,19 +4,13 @@ var Schema = mongoose.Schema;
  * [UserSchema describes the user collection]
  * @type {Schema}
  */
-var UserSchema = new Schema({
-  name: {
+var CommentsSchema = new Schema({
+  text: {
     type: String
   },
-  username: {
-    type: String
-  },
-  password: {
-    type: String
-  },
-  token: {
+  by: {
     type: String
   }
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Comments', CommentsSchema);

@@ -6,6 +6,9 @@ var Recipe = require('./app/models/models.recipe');
 var User = require('./app/models/models.user');
 var routes = require('./app/routes');
 var router = express.Router();
+var morgan = require('morgan');
+
+app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({
   extended: true

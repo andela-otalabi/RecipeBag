@@ -2,14 +2,16 @@ var Recipe = require('../models/models.recipe');
 
 module.exports = {
   /**
-   * [getApi welcomes you to the recipe api]
+   * [getAllRecipes gets all recipes]
    * @param  {[req]}
    * @param  {[res]}
    * @return {[void]}
    */
-  getApi: function(req, res) {
-    res.json({
-      message: 'Welcome to the recipe api!'
+  getAllRecipes: function(req, res) {
+    Recipe.find(function(err, recipes) {
+      if (err)
+        res.send(err);
+      res.json(recipes);
     });
   },
   /**
@@ -18,7 +20,7 @@ module.exports = {
    * @param  {[res]}
    * @return {[void]}
    */
-  getAllRecipes: function(req, res) {
+  getAllApprovedRecipes: function(req, res) {
     Recipe.find({
       approved: true
     }).exec(function(err, recipes) {
