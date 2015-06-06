@@ -24,16 +24,18 @@ var RecipeSchema = new Schema({
   ingredients: [{
     type: String
   }],
+  videoLink: [{
+    type: String
+  }],
+  imageLink: [{
+    type: String
+  }],
   method: [{
     type: String
   }],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
-  comment: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comments'
   }
 });
 

@@ -8,14 +8,35 @@ module.exports = {
    * @param  {[res]}
    * @return {[void]}
    */
-  getAllComments: function(req, res) {
+  getAllComments: function(req, res, next) {
     Comment.find(function(err, comments) {
-      if (err)
-        res.send(err);
-      res.json(comments);
+      if (err) {
+        res.json({
+          message: 'Error getting comments.'
+        });
+      }
+      if (comments) {
+        res.json(comments);
+      }
+      next();
     });
   },
 
+  getRecipeComments: function(req, res, next) {
+    Comment.find({
+      recipe: req.params.recipe_id
+    }, function(err, comments) {
+      if (err) {
+        res.json({
+          message: 'Error getting comments.'
+        });
+      }
+      if (comments) {
+        res.json(comments);
+      }
+      next();
+    });
+  },
   /**
    * [createUsers allows user to register]
    * @param  {[req]}
@@ -23,15 +44,18 @@ module.exports = {
    * @return {[void]}
    */
   addComment: function(req, res) {
-    var comment = new Comment();
-    comment.text = req.body.text;
-    comment.by = req.body.by;
-    comment.save(function(err) {
-      if (err)
-        res.send(err);
-      res.json({
-        message: 'comment added!',
-        data: comment
+    Recipe.findById(req.params.recipe_id, function(err, user) {
+      var comment = new Comment(req.body);
+      /*comment.text = req.body.text;
+      comment.by = req.body.by;*/
+      comment.recipe = req.params.recipe_id;
+      comment.save(function(err) {
+        if (err)
+          res.send(err);
+        res.json({
+          message: 'comment added!',
+          data: comment
+        });
       });
     });
   },

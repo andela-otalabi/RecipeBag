@@ -1,12 +1,12 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose'); //ORM
-var Recipe = require('./app/models/models.recipe');
-var User = require('./app/models/models.user');
-var routes = require('./app/routes');
-var router = express.Router();
-var morgan = require('morgan');
+var express = require('express'),
+  app = express(),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose'), //ORM
+  Recipe = require('./app/models/models.recipe'),
+  User = require('./app/models/models.user'),
+  routes = require('./app/routes'),
+  router = express.Router(),
+  morgan = require('morgan');
 
 app.use(morgan('dev'));
 

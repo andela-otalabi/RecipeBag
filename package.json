@@ -4,8 +4,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.0.1",
-    "express": "^4.0.0",
-    "faker": "^2.1.4",
+    "express": "^4.0.0",    
     "jsonwebtoken": "^5.0.1",
     "mongoose": "^4.0.4",
     "morgan": "^1.5.3"

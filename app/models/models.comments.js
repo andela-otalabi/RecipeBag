@@ -9,7 +9,12 @@ var CommentsSchema = new Schema({
     type: String
   },
   by: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  recipe: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
   }
 });
 

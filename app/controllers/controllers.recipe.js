@@ -76,7 +76,7 @@ module.exports = {
     // recipe.cookTime = req.body.cookTime;
     // recipe.ingredients = req.body.ingredients;
     // recipe.method = req.body.method;
-    recipe.user = req.body.user;
+    //recipe.user = req.body.user;
     recipe.save(function(err) {
 
       if (err)
