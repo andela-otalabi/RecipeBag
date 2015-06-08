@@ -111,7 +111,7 @@ module.exports = {
         });
       } else if (user) {
         var validPassword = user.comparePassword(req.body.password);
-        /*console.log(validPassword);*/
+        //console.log(validPassword);
         if (validPassword) {
           var token = jwt.sign({
             username: req.body.username
@@ -144,7 +144,6 @@ module.exports = {
           });
         } else {
           req.user = user;
-          //console.log(req.decoded);
           next();
         }
       });

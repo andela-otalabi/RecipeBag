@@ -14,6 +14,10 @@ module.exports = {
       res.json(recipes);
     });
   },
+
+  getAll: function(req, res) {
+    res.sendfile('./public/index.html');
+  },
   /**
    * [getAllRecipes gets all recipes that have been approved]
    * @param  {[req]}

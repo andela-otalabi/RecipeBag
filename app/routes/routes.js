@@ -16,7 +16,7 @@ module.exports = function(router) {
   router.route('/users/login')
     .post(Users.userLogin);
 
-  router.use(Users.verifyToken);
+  //router.use(Users.verifyToken);
 
   router.route('/users/:user_id/recipes')
     .get(Users.getUserRecipes);
@@ -43,6 +43,6 @@ module.exports = function(router) {
     .get(Comments.getRecipeComments)
     .post(Comments.addComment);
 
-  router.route('/recipes/comments/:comment_id')
+  router.route('/recipes/:recipe_id/comments/:comment_id')
     .delete(Comments.deleteComment);
 };

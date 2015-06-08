@@ -11,9 +11,11 @@ var database = require('./config/database'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
   Recipe = require('./app/models/models.recipe'),
+  Recipes = require('./app/controllers/controllers.recipe'),
   User = require('./app/models/models.user'),
   routes = require('./app/routes'),
   router = express.Router(),
+  methodOverride = require('method-override'),
   morgan = require('morgan');
 
 app.use(morgan('dev'));
@@ -25,8 +27,12 @@ app.use(bodyParser.json());
 
 mongoose.connect(database.database);
 
+app.use(methodOverride());
+
 app.use('/api', router);
 routes(router);
+
+app.get('*',Recipes.getAll);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
