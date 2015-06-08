@@ -1,7 +1,15 @@
-var express = require('express'),
+require('dotenv').load();
+
+var database = require('./config/database'),
+  express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
+  port = process.env.PORT || 5000,
   mongoose = require('mongoose'), //ORM
+  passport = require('passport'),
+  flash = require('connect-flash'),
+  cookieParser = require('cookie-parser'),
+  session = require('express-session'),
   Recipe = require('./app/models/models.recipe'),
   User = require('./app/models/models.user'),
   routes = require('./app/routes'),
@@ -15,9 +23,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 5000;
-
-mongoose.connect('mongodb://localhost/recipe_db');
+mongoose.connect(database.database);
 
 app.use('/api', router);
 routes(router);
