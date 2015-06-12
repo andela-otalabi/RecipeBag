@@ -6,7 +6,8 @@ var Schema = mongoose.Schema;
  */
 var RecipeSchema = new Schema({
   name: {
-    type: String
+    type: String,
+    required: true
   },
   approved: {
     type: Boolean,

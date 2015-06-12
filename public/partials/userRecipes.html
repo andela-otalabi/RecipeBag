@@ -1,0 +1,27 @@
+<section id="portfolio" class="bg-light-gray" ng-init="getRecipes()">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading">My Recipes</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 portfolio-item" ng-repeat="recipe in recipes">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+          </div>
+        </div>
+        <img ng-src="{[{recipe.imageLink}]}" class="img-responsive" alt="">
+        <div class="portfolio-caption">
+          <h4 ng-bind="recipe.name"></h4>
+          <p class="text-muted">Category {[{recipe.category}]}</p>
+          <p class="text-muted">Preparation Time:{[{recipe.prepTime}]} ; Cooking Time:{[{recipe.cookTime}]}</p></br>Ingredients:
+          <ul ng-repeat="item in recipe.ingredients"><li>{[{item}]}</li></ul>
+          <p class="text-muted">Method:{[{recipe.method}]}</p>
+          <a id="approve" class="btn btn-primary btn-md" ng-click="approve(recipe._id, $index)" ng-hide="{[{recipe.approved}]}">approve</a>  {[{message}]}</p>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</section>

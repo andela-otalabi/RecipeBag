@@ -15,9 +15,9 @@ module.exports = {
     });
   },
 
-  getAll: function(req, res) {
-    res.sendfile('./public/index.html');
-  },
+  // getAll: function(req, res) {
+  //   res.sendfile('./public/index.html');
+  // },
   /**
    * [getAllRecipes gets all recipes that have been approved]
    * @param  {[req]}
@@ -74,7 +74,9 @@ module.exports = {
    * @return {[void]}
    */
   createRecipe: function(req, res) {
+    console.log(req.body);
     var recipe = new Recipe(req.body);
+
     // recipe.name = req.body.name;
     // recipe.prepTime = req.body.prepTime;
     // recipe.cookTime = req.body.cookTime;

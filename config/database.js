@@ -1,3 +1,3 @@
 module.exports = {
-  database: process.env.MONGO_DB || process.env.MONGOHQ_URL
+  database: process.env.MONGOHQ_URL || process.env.MONGO_PROD
 };

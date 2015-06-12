@@ -26,6 +26,10 @@ module.exports = {
     });
   },
 
+  getMe: function(req, res) {
+    res.send(req.user)
+  },
+ 
   /**
    * [getUserRecipes shows all recipes created by a particular user]
    * @param  {[req]}
@@ -58,23 +62,23 @@ module.exports = {
     var user = new User(req.body);
     /*var hash = bcrypt.hashSync(req.body.username + req.body.password + new Date().getTime());
     user.token = hash;*/
-    user.save(function(err) {
+    user.save(function(err, user) {
       if (err) {
         if (err.code == 11000) {
           res.json({
             success: false,
             message: 'A user with that username already exists. '
           });
+        } else {
+          res.json({
+            message: 'Error creating users.'
+          });
         }
-        res.json({
-          message: 'Error creating users.'
-        });
       } else {
         res.json({
           message: 'User created'
         });
       }
-      next();
     });
   },
 
@@ -106,25 +110,25 @@ module.exports = {
         });
       }
       if (!user) {
-        return res.json({
+        res.json({
           message: 'Incorrect username!'
         });
       } else if (user) {
         var validPassword = user.comparePassword(req.body.password);
-        //console.log(validPassword);
         if (validPassword) {
           var token = jwt.sign({
             username: req.body.username
           }, jwtSecret, {
             expiresInMinutes: 1440 // expires in 24 hours
           });
-          return res.json({
+          res.json({
+            success: true,
             message: 'token has been generated',
             tokengen: token,
             userdetails: user
           });
         } else {
-          return res.json({
+          res.json({
             message: 'Incorrect password!'
           });
         }
@@ -135,7 +139,6 @@ module.exports = {
 
   verifyToken: function(req, res, next) {
     var token = req.headers['x-access-token'];
-    //if there is a token, decode it
     if (token) {
       jwt.verify(token, jwtSecret, function(err, user) {
         if (err) {

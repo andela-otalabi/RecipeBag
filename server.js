@@ -8,6 +8,7 @@ var database = require('./config/database'),
   mongoose = require('mongoose'), //ORM
   passport = require('passport'),
   flash = require('connect-flash'),
+  consolidate = require('consolidate'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
   Recipe = require('./app/models/models.recipe'),
@@ -16,7 +17,8 @@ var database = require('./config/database'),
   routes = require('./app/routes'),
   router = express.Router(),
   methodOverride = require('method-override'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  path = require('path');
 
 app.use(morgan('dev'));
 
@@ -29,10 +31,26 @@ mongoose.connect(database.database);
 
 app.use(methodOverride());
 
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization, x-access-token');
+  next();
+});
+
 app.use('/api', router);
 routes(router);
 
-app.get('*',Recipes.getAll);
+app.engine('server.view.html', consolidate['swig']);
+
+app.set('view engine', 'server.view.html');
+app.set('views', './public');
+app.route('/').get(function(req, res) {
+  res.render('index', {});
+});
+app.use(express.static(path.resolve('./public')));
+
+// app.get('*',Recipes.getAll);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);

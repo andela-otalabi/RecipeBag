@@ -25,6 +25,8 @@ module.exports = function(router) {
     .delete(Users.deleteUser)
     .get(Users.getAUser);
 
+  router.get('/me', Users.verifyToken, Users.getMe);
+
   router.get('/', Recipes.getAllRecipes);
 
   router.route('/recipes')
