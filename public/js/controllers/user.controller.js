@@ -1,4 +1,5 @@
-app.controller('usersController', ['$scope', 'Users', '$location', '$cookies', function($scope, Users, $location, $cookies) {
+app.controller('usersController', ['$scope', 'Users', '$location', '$cookies', '$rootScope', function($scope, Users, $location, $cookies, $rootScope) {
+
   $scope.createUser = function() {
     var userdetails = {
       name: $scope.name,
@@ -9,6 +10,7 @@ app.controller('usersController', ['$scope', 'Users', '$location', '$cookies', f
     Users.createUser(userdetails).success(function(response) {
       var res = response.message;
       $scope.response = res;
+      console.log('user created');
       if (res === 'User created') {
         $location.path('/login');
       }
@@ -26,13 +28,13 @@ app.controller('usersController', ['$scope', 'Users', '$location', '$cookies', f
     Users.userLogin(loginDetails).success(function(res) {
       console.log('res :', res);
       if (res.success === true) {
-
         $cookies.put('user', JSON.stringify(res));
-
+        console.log('successfully saved token in userStorage');
         if (res.userdetails.username == "admin") {
           $location.path('/approveRecipes');
-        } else
-          $location.path('/createRecipe');
+        } else{
+          $location.path('/userRecipes');
+        }
       } else {
         $scope.errorMessage = 'Incorrect username or password';
       }
@@ -41,18 +43,13 @@ app.controller('usersController', ['$scope', 'Users', '$location', '$cookies', f
     });
   };
 
-  $scope.doLogout = function() {
-    Users.logout();
-    $scope.user = {};
-    $location.path('/');
+  $scope.getUserRecipes = function(){
+
   };
-}]).controller('IndexCtrl', function($scope, $cookies, $location, $rootScope, Users, Recipes) {
+}]).controller('IndexCtrl', function($scope, $cookies, $location, $rootScope) {
   $scope.logout = function() {
     $cookies.remove('user');
     $rootScope.rootUser = $cookies.get('user');
     $location.path('/');
   };
-  $scope.userRecipes = function(){
-    
-  }
 });

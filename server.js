@@ -6,7 +6,6 @@ var database = require('./config/database'),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 5000,
   mongoose = require('mongoose'), //ORM
-  passport = require('passport'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
   cookieParser = require('cookie-parser'),
@@ -18,10 +17,12 @@ var database = require('./config/database'),
   router = express.Router(),
   methodOverride = require('method-override'),
   morgan = require('morgan'),
-  path = require('path');
+  multer = require('multer'),
+  path = require('path'),
+cloudinary = require('cloudinary');
 
 app.use(morgan('dev'));
-
+app.use(multer({ dest: './uploads/'}));
 app.use(bodyParser.urlencoded({
   extended: true
 }));

@@ -1,31 +1,98 @@
-<section id="portfolio" class="bg-light-gray">
+<!-- <section id="portfolio" class="bg-light-gray">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h2 class="section-heading">Welcome</h2> </br>
-        <p>Thank you for stopping by, this is where you can find well-crafted recipes for the home cook. Happy cooking! ~Seyi</p>
       </div>
     </div>
     <div class="row">
       <form>
         <div>
           <input type="text" placeholder="Recipe Name" ng-model="formData.name">
+          </br>
           <input type="text" placeholder="Preparation Time" ng-model="formData.prepTime">
+          </br>
           <input type="text" placeholder="Total cook time" ng-model="formData.cookTime">
+          </br>
           <input type="text" placeholder="Ingredients" ng-model="formData.ingredients">
+          </br>
           <input type="text" placeholder="Method of preparation" ng-model="formData.method">
-          <input type="text" placeholder="Image Link" ng-model="formData.imageLink">
+          </br> -->
+<!-- <input type="text" placeholder="Image Link" ng-model="formData.imageLink">
+          <!-- <button ng-file-select ng-file-change="upload($images)">Upload recipe picture</button> -->
+<!--      <input type="file" ng-file-select="fileSelected($files)" accept="'image/*'">Upload</button>
+          </br>
+          </br>
         </div>
         <button type="submit" ng-click="createRecipe()">Add Recipe</button>
       </form>
-      <ul ng-repeat="(key, value) in recipe">
-        <li>{[{key}]}: {[{value}]}</li>
-      </ul>
-      <p>by: {[{recipe.user.username}]}</p>
+      <p class="text-muted">{[{message}]}</p>
+      <p class="text-muted" ng-repeat="(key, value) in recipe">{[{key}]}: {[{value}]}</p>
+      </br>
     </div>
   </div>
   </div>
   </div>
-
-   <button type="submit" ng-click="viewRecipe()">View Your Recipes</button>
-</section>
+</section> -->
+<div class="container">
+  <div class="row centered-form">
+    <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Add a recipe</h3>
+        </div>
+        <div class="panel-body">
+          <form role="form">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <input type="text" required="" class="form-control input-sm" placeholder="Recipe Name" ng-model="formData.name">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <input type="text" required="" class="form-control input-sm" placeholder="Preparation Time" ng-model="formData.prepTime">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <input type="text" required="" class="form-control input-sm" placeholder="Total cook time" ng-model="formData.cookTime">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <textarea class="form-control" required="" type="textarea" placeholder="Ingredients" ng-model="formData.ingredients"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <textarea class="form-control" required="" type="textarea" placeholder="Method of preparation" ng-model="formData.method"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <input type="file" ng-file-select="fileSelected($files)" accept="'image/*'" required="" class="form-control input-sm" placeholder="Upload Food Image">
+                </div>
+              </div>
+            </div>
+            <div class="wrapper">
+              <span class="group-btn">     
+                <a ng-click="createRecipe()" class="btn btn-primary btn-md">Submit</a>
+            </span>
+            </div>
+          </form>
+          <p class="text-muted">{[{message}]}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

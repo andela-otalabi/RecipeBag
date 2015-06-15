@@ -8,12 +8,10 @@ app.factory('Users', ['$http', function($http) {
         return $http.post('/api/users/login', loginDetails);
       },
 
-      userLogout: function() {
-        
+      userDetails: function(userId) {
+        return $http.get('/api/users/'+ userId );
       },
 
-      getUser: function() {
-        
-      }
+
     }
   }]);

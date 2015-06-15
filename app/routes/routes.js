@@ -30,7 +30,7 @@ module.exports = function(router) {
   router.get('/', Recipes.getAllRecipes);
 
   router.route('/recipes')
-    .post(Recipes.createRecipe)
+    .post(Users.verifyToken, Recipes.uploadImage, Recipes.createRecipe)
     .get(Recipes.getAllApprovedRecipes);
 
   router.route('/recipes/:recipe_id')

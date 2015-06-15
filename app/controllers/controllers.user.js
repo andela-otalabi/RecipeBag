@@ -29,7 +29,7 @@ module.exports = {
   getMe: function(req, res) {
     res.send(req.user)
   },
- 
+
   /**
    * [getUserRecipes shows all recipes created by a particular user]
    * @param  {[req]}
@@ -38,7 +38,6 @@ module.exports = {
    */
   getUserRecipes: function(req, res, next) {
     Recipe.find({
-      approved: true,
       user: req.params.user_id
     }, function(err, recipe) {
       if (err) {
@@ -60,14 +59,12 @@ module.exports = {
    */
   createUsers: function(req, res, next) {
     var user = new User(req.body);
-    /*var hash = bcrypt.hashSync(req.body.username + req.body.password + new Date().getTime());
-    user.token = hash;*/
     user.save(function(err, user) {
       if (err) {
         if (err.code == 11000) {
           res.json({
             success: false,
-            message: 'A user with that username already exists. '
+            message: 'A user with that username already exists.'
           });
         } else {
           res.json({
@@ -75,6 +72,7 @@ module.exports = {
           });
         }
       } else {
+        console.log('++++++++++++++++>>>>>user creation succcseful');
         res.json({
           message: 'User created'
         });
@@ -117,7 +115,7 @@ module.exports = {
         var validPassword = user.comparePassword(req.body.password);
         if (validPassword) {
           var token = jwt.sign({
-            username: req.body.username
+            id: user._id
           }, jwtSecret, {
             expiresInMinutes: 1440 // expires in 24 hours
           });
@@ -138,8 +136,14 @@ module.exports = {
   },
 
   verifyToken: function(req, res, next) {
-    var token = req.headers['x-access-token'];
+    
+    var token = req.body.token || req.headers['x-access-token'];
+    if (!token) {
+      req.data = JSON.parse(req.body.data);
+      token = req.data.token;
+    }
     if (token) {
+      console.log(token);
       jwt.verify(token, jwtSecret, function(err, user) {
         if (err) {
           return res.json({

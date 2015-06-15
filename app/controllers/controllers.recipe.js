@@ -1,4 +1,5 @@
 var Recipe = require('../models/models.recipe');
+var cloudinary = require('cloudinary');
 
 module.exports = {
   /**
@@ -74,26 +75,34 @@ module.exports = {
    * @return {[void]}
    */
   createRecipe: function(req, res) {
-    console.log(req.body);
-    var recipe = new Recipe(req.body);
-
-    // recipe.name = req.body.name;
-    // recipe.prepTime = req.body.prepTime;
-    // recipe.cookTime = req.body.cookTime;
-    // recipe.ingredients = req.body.ingredients;
-    // recipe.method = req.body.method;
-    //recipe.user = req.body.user;
+    var recipe = new Recipe(req.data.data);
+    recipe.imageLink = req.imageLink;
+    recipe.user = req.user.id;
     recipe.save(function(err) {
-
       if (err)
-        res.send(err);
+        res.json(err);
       res.json({
-        message: 'Recipe created!',
+        message: 'Your recipe has been saved, and will be visible after approval',
         data: recipe
       });
     });
+    //cloudinary.uploader.upload(req., function(result) { console.log(result) })
   },
-  /**
+
+  uploadImage: function(req, res, next) {
+    cloudinary.uploader.upload(req.files.file.path, function(result) {
+      console.log('sagsdgasdgsasdgadse', result.url);
+      if (result.url) {
+        req.imageLink = result.url
+        next()
+      } else {
+        res.json({
+          error: 'You need to upload a picture to create the recipe, Please make sure you are connected to the internet to upload a picture'
+        });
+      }
+    })
+  },
+  /*
    * [updateRecipe description]
    * @param  {[type]}
    * @param  {[type]}
@@ -110,6 +119,7 @@ module.exports = {
       recipe.ingredients = req.body.ingredients;
       recipe.method = req.body.method;
       recipe.user = req.body.user;
+      recipe.imageLink = req.body.imageLink;
       recipe.save(function(err) {
         if (err)
           res.send(err);

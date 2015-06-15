@@ -14,14 +14,83 @@
         <img ng-src="{[{recipe.imageLink}]}" class="img-responsive" alt="">
         <div class="portfolio-caption">
           <h4 ng-bind="recipe.name"></h4>
-          <p class="text-muted">Category {[{recipe.category}]}</p>
-          <p class="text-muted">Preparation Time:{[{recipe.prepTime}]} ; Cooking Time:{[{recipe.cookTime}]}</p></br>Ingredients:
-          <ul ng-repeat="item in recipe.ingredients"><li>{[{item}]}</li></ul>
-          <p class="text-muted">Method:{[{recipe.method}]}</p>
-          <a id="approve" class="btn btn-primary btn-md" ng-click="approve(recipe._id, $index)" ng-hide="{[{recipe.approved}]}">approve</a>  {[{message}]}</p>
+          <p class="text-muted">Preparation Time:{[{recipe.prepTime}]}</p>
+          </br>
+          <p class="text-muted">Cooking Time:{[{recipe.cookTime}]}</p>
+          </br>
+          <p class="text-muted">Ingredients</p>
+          <p class="text-muted" ng-repeat="item in recipe.ingredients">{[{item}]}</p>
+          </br>
+          <p class="text-muted">Method</p>
+          <ol>
+            <li ng-repeat="method in recipe.method" class="text-muted">{[{method}]}</li>
+          </ol>
+          <a id="approve" class="btn btn-danger btn-md" ng-click="deleteRecipe(recipe._id, $index)" ng-show='rootUser'>Delete</a>
+          <a id="approve" href="" class="btn btn-success btn-md" ng-click="editRecipe(recipe)" ng-show='rootUser'>Edit</a>
         </div>
-       
       </div>
     </div>
   </div>
 </section>
+<script type="text/ng-template" id="modal.html">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Edit Recipe</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <form role="form">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <input type="text" required="" class="form-control input-sm" placeholder="Recipe Name" ng-model="newRecipe.name">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <input type="text" required="" class="form-control input-sm" placeholder="Preparation Time" ng-model="newRecipe.prepTime">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <input type="text" required="" class="form-control input-sm" placeholder="Total cook time" ng-model="newRecipe.cookTime">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <textarea class="form-control" required="" type="textarea" placeholder="Ingredients" ng-model="newRecipe.ingredients"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <textarea class="form-control" required="" type="textarea" placeholder="Method of preparation" ng-model="newRecipe.method"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <input type="file" ng-file-select="fileSelected($files)" accept="'image/*'" required="" class="form-control input-sm" placeholder="Upload Food Image">
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="save-button" ng-click="save()" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

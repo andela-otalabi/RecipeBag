@@ -1,4 +1,4 @@
-var app = angular.module('recipeApp', ['ngRoute', 'ngCookies'])
+var app = angular.module('recipeApp', ['ngRoute', 'ngCookies', 'angularFileUpload', 'angularModalService'])
   .config(function($interpolateProvider, $routeProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 
@@ -9,6 +9,10 @@ var app = angular.module('recipeApp', ['ngRoute', 'ngCookies'])
     when('/recipes', {
       templateUrl: 'partials/recipes.html',
       controller: 'recipesController'
+    }).
+    when('/showRecipeDesc/:id', {
+      templateUrl: 'partials/fullRecipeDescription.html',
+      controller: 'fullRecipeController'
     }).
     when('/login', {
       templateUrl: 'partials/login.html',
@@ -29,6 +33,10 @@ var app = angular.module('recipeApp', ['ngRoute', 'ngCookies'])
     when('/signUp', {
       templateUrl: 'partials/signUp.html',
       controller: 'usersController'
+    }).
+    when('/userRecipes', {
+      templateUrl: 'partials/userRecipes.html',
+      controller: 'userRecipeCtrl'
     });
 
   });
