@@ -155,7 +155,8 @@ module.exports = {
         if (err)
           res.send(err);
         res.json({
-          message: 'Recipe updated!'
+          message: 'Recipe updated!',
+          data: recipe
         });
       });
     });

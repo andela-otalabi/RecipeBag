@@ -142,7 +142,7 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
         });
     };
 
-    $scope.editRecipe = function(recipe) {
+    $scope.editRecipe = function(recipe, index) {
       console.log(recipe._id);
 
       Recipes.getOneRecipe(recipe._id).then(
@@ -181,6 +181,7 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
                 },
                 file: $scope.newImage
               }).progress(function(evt) {}).success(function(data) {
+                $scope.recipes[index] = data.data;
                 $scope.message = data.message || data.error;
               });
 
