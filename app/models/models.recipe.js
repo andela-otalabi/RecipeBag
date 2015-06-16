@@ -26,6 +26,10 @@ var RecipeSchema = new Schema({
     type: String
   }],
   imageLink: String,
+  likes: {
+    type: Number,
+    default: 0
+  },
   method: [{
     type: String
   }],

@@ -35,12 +35,16 @@ module.exports = function(router) {
 
   router.route('/recipes/:recipe_id')
     .get(Recipes.getOneRecipe)
-    .put(Recipes.updateRecipe)
+     //.put(Recipes.uploadImage, Recipes.updateRecipe)
+    .post(Recipes.uploadImage, Recipes.updateRecipe)
     .delete(Recipes.deleteRecipe);
 
   router.route('/recipes/:recipe_id/approve')
     .put(Recipes.approveRecipe);
-
+    
+  router.route('/recipes/:recipe_id/like')
+    .put(Recipes.likeRecipe);
+    
   router.route('/recipes/:recipe_id/comments')
     .get(Comments.getRecipeComments)
     .post(Comments.addComment);

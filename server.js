@@ -6,10 +6,8 @@ var database = require('./config/database'),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 5000,
   mongoose = require('mongoose'), //ORM
-  flash = require('connect-flash'),
   consolidate = require('consolidate'),
   cookieParser = require('cookie-parser'),
-  session = require('express-session'),
   Recipe = require('./app/models/models.recipe'),
   Recipes = require('./app/controllers/controllers.recipe'),
   User = require('./app/models/models.user'),
@@ -19,10 +17,12 @@ var database = require('./config/database'),
   morgan = require('morgan'),
   multer = require('multer'),
   path = require('path'),
-cloudinary = require('cloudinary');
+  cloudinary = require('cloudinary');
 
 app.use(morgan('dev'));
-app.use(multer({ dest: './uploads/'}));
+app.use(multer({
+  dest: './uploads/'
+}));
 app.use(bodyParser.urlencoded({
   extended: true
 }));

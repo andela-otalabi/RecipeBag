@@ -26,13 +26,24 @@ module.exports = {
    * @return {[void]}
    */
   getAllApprovedRecipes: function(req, res) {
-    Recipe.find({
-      approved: true
-    }).exec(function(err, recipes) {
-      if (err)
-        res.send(err);
-      res.json(recipes);
-    });
+
+    if(!req.query.sort) {
+      Recipe.find({
+        approved: true
+      }).exec(function(err, recipes) {
+        if (err)
+          res.send(err);
+        res.json(recipes);
+      });
+    } else {
+      Recipe.find({
+        approved: true
+      }).sort({ likes: 'desc' }).exec(function(err, recipes) {
+        if (err)
+          res.send(err);
+        res.json(recipes);
+      });
+    }
   },
   /**
    * [getOneRecipe gets a selected recipe]
@@ -68,6 +79,22 @@ module.exports = {
     });
   },
 
+  likeRecipe: function(req, res){
+    Recipe.findById(req.params.recipe_id, function(err, recipe){
+      if(err)
+        res.send(err);
+      recipe.likes += 1; 
+      recipe.save(function(err){
+        if (err)
+          res.send(err);
+        res.json({
+          message: 'Thanks for liking',
+          data: recipe
+        });
+      });
+    });
+  },
+
   /**
    * [createRecipe allows user post a recipe]
    * @param  {[req]}
@@ -86,10 +113,10 @@ module.exports = {
         data: recipe
       });
     });
-    //cloudinary.uploader.upload(req., function(result) { console.log(result) })
   },
 
   uploadImage: function(req, res, next) {
+    console.log(req.files);
     cloudinary.uploader.upload(req.files.file.path, function(result) {
       console.log('sagsdgasdgsasdgadse', result.url);
       if (result.url) {
@@ -109,17 +136,21 @@ module.exports = {
    * @return {[type]}
    */
   updateRecipe: function(req, res) {
+    console.log(req.imageLink);
     Recipe.findById(req.params.recipe_id, function(err, recipe) {
+      //console.log(req.body);
+      req.data = JSON.parse(req.body.data);
+       
       if (err)
         res.send(err);
-
-      recipe.name = req.body.name;
-      recipe.prepTime = req.body.prepTime;
-      recipe.cookTime = req.body.cookTime;
-      recipe.ingredients = req.body.ingredients;
-      recipe.method = req.body.method;
-      recipe.user = req.body.user;
-      recipe.imageLink = req.body.imageLink;
+      //recipe.imageLink = req.imageLink;
+      recipe.name = req.data.data.name;
+      recipe.prepTime = req.data.data.prepTime;
+      recipe.cookTime = req.data.data.cookTime;
+      recipe.ingredients = req.data.data.ingredients;
+      recipe.method = req.data.data.method;
+      recipe.user = req.data.data.user;
+      recipe.imageLink = req.imageLink;
       recipe.save(function(err) {
         if (err)
           res.send(err);

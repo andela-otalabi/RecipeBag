@@ -9,6 +9,29 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
           console.log('Error: ' + data);
         });
     };
+
+    $scope.like = function(recipe) {
+      Recipes.like(recipe._id)
+        .success(function(response) {
+          recipe.likes = response.data.likes;
+          // $scope.sort();
+        })
+        .error(function(res) {
+          console.log('error:', res);
+        });
+    };
+
+    $scope.sort = function() {
+      Recipes.getApprovedRecipes(true)
+        .success(function(data) {
+          console.log('this is data from api', data);
+          $scope.recipes = data;
+        })
+        .error(function(data) {
+          console.log('Error: ' + data);
+        });
+    };
+
   })
   .controller('fullRecipeController', function($scope, $http, $location, Recipes, $routeParams) {
     var recipeId = $routeParams.id;
@@ -29,7 +52,12 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
       $rootScope.rootUser = JSON.parse(cookie);
     }
     console.log('i am abt to create a recipe', $rootScope.rootUser.userdetails.username);
-    //console.log('i am abt to create a recipe', $rootScope.rootUser.tokengen);
+
+    $scope.fileSelected = function(files) {
+      if (files && files.length) {
+        $scope.file = files[0];
+      }
+    };
 
     $scope.createRecipe = function() {
       $scope.formData = {
@@ -48,48 +76,10 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
           token: $rootScope.rootUser.tokengen
         },
         file: $scope.file
-      }).progress(function(evt) {
-      }).success(function(data) {
-        console.log(data.error);
+      }).progress(function(evt) {}).success(function(data) {
         $scope.message = data.message || data.error;
-        // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
       });
-
-      // Recipes.create({
-      //     data: $scope.formData,
-      //     token: $rootScope.rootUser.tokengen
-      //   })
-      //   .success(function(data) {
-      //     $scope.message = data.message;
-      //     $scope.recipe = {
-      //       Name: data.data.name,
-      //       "Preparation Time": data.data.prepTime,
-      //       "Cook Time": data.data.cookTime,
-      //       Ingredients: data.data.ingredients,
-      //       Method: data.data.method,
-      //     };
-      //     console.log("newly created recipe", data);
-      //     $scope.formData = {
-      //       name: $scope.formData.name,
-      //       prepTime: $scope.formData.prepTime,
-      //       cookTime: $scope.formData.cookTime,
-      //       ingredients: $scope.formData.ingredients,
-      //       method: $scope.formData.method,
-      //       imageLink: $scope.formData.imageLink
-      //     };
-      //   })
-      //   .error(function(data) {
-      //     console.log('Error: ' + data);
-      //   });
     };
-
-
-    $scope.fileSelected = function(files) {
-      if (files && files.length) {
-        $scope.file = files[0];
-      }
-    };
-
   })
   .controller('approveController', function($scope, $http, $rootScope, $location, $cookies, Recipes) {
 
@@ -124,7 +114,7 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
         });
     }
   })
-  .controller('userRecipeCtrl', function($scope, $http, $rootScope, $location, $cookies, Recipes, ModalService) {
+  .controller('userRecipeCtrl', function($scope, $http, $rootScope, $location, $cookies, Recipes, ModalService, $upload) {
     var cookie = $cookies.get('user');
     if (!cookie) {
       $location.path('/login');
@@ -154,18 +144,17 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
 
     $scope.editRecipe = function(recipe) {
       console.log(recipe._id);
-    
+
       Recipes.getOneRecipe(recipe._id).then(
         function(response) {
           console.log(response.data);
-          
-          edittedRecipe = {
+
+          var edittedRecipe = {
             name: response.data.name,
             prepTime: response.data.prepTime,
             cookTime: response.data.cookTime,
             ingredients: response.data.ingredients,
             method: response.data.method.join(),
-            imageLink: response.data.imageLink,
             user: response.data.user
           }
 
@@ -177,29 +166,56 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
             }
           }).then(function(modal) {
 
-            //it's a bootstrap element, use 'modal' to show it
             modal.element.modal();
             modal.close.then(function(result) {
-              console.log(result);
-              $scope.recipe = result;
-
-              Recipes.edit(recipe._id, result).then(function(response) {
-                console.log(response.data);
+              console.log("this is result", result.file);
+              console.log("this is result", result);
+              console.log("recipe id", recipe._id);
+              $scope.recipe = result['result'];
+              $scope.newImage = result.file;
+           
+              $upload.upload({
+                url: '/api/recipes/' + recipe._id,
+                data: {
+                  data: $scope.recipe
+                },
+                file: $scope.newImage
+              }).progress(function(evt) {}).success(function(data) {
+                $scope.message = data.message || data.error;
               });
+
+              // Recipes.edit(recipe._id, result).then(function(response) {
+              //   console.log(response.data);
+              // });
+              // Recipes.uploadImage('/api/recipes/'+recipe._id, $scope.recipe, {}, $scope.newImage);
+              // .progress(function(evt) {}).success(function(data) {
+              //   console.log(data.error);
+              //   $scope.message = data.message || data.error;
+              // });
+              // $scope.seyi();
             });
           });
         });
-
     };
   })
-  .controller('edit', ['$scope', 'ModalService', 'recipe', 'close', function($scope, ModalService, recipe, close) {
-    $scope.newRecipe = angular.copy(recipe); // creates a copy of quote and assign it to the editted quote
+  .controller('edit', ['$scope', 'ModalService', 'recipe', 'Recipes', 'close', function($scope, ModalService, recipe, Recipes, close) {
+
+    $scope.fileSelectedForEdit = function(files) {
+      if (files && files.length) {
+        $scope.file = files[0];
+      }
+    };
+
+    $scope.newRecipe = angular.copy(recipe); // creates a copy of recipe and assign it to the editted recipe
 
     $scope.save = function() {
-      close($scope.newRecipe, 500); // close, but give 500ms for bootstrap to animate
+      close({
+        result: $scope.newRecipe,
+        file: $scope.file
+      }, 500); // close, but give 500ms for bootstrap to animate
     };
 
     $scope.cancel = function() {
-      close(recipe, 500); // ignore edit and return old quote
+      close(recipe, 500); // ignore edit and return old recipe
     };
   }]);
