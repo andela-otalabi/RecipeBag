@@ -13,16 +13,13 @@
         </div>
         <img ng-src="{[{recipe.imageLink}]}" class="img-responsive" alt="">
         <div class="portfolio-caption">
-          <h4 ng-bind="recipe.name"></h4>
+          <h2 ng-bind="recipe.name"></h2>
           <p class="text-muted">Preparation Time:{[{recipe.prepTime}]}</p>
-          </br>
           <p class="text-muted">Cooking Time:{[{recipe.cookTime}]}</p>
-          </br>
-          <p class="text-muted">Ingredients</p>
+          <h6 class="text-muted">Ingredients</h6>
           <p class="text-muted" ng-repeat="item in recipe.ingredients">{[{item}]}</p>
-          </br>
-          <p class="text-muted">Method</p>
-          <ol>
+          <h6 class="text-muted">Method</h6>
+          <ol class="listmethod">
             <li ng-repeat="method in recipe.method" class="text-muted">{[{method}]}</li>
           </ol>
           <a id="approve" class="btn btn-danger btn-md" ng-click="deleteRecipe(recipe._id, $index)" ng-show='rootUser'>Delete</a>
@@ -32,8 +29,8 @@
     </div>
   </div>
 </section>
-<script type="text/ng-template" id="modal.html" >
-  <div class="modal fade" >
+<script type="text/ng-template" id="modal.html">
+  <div class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

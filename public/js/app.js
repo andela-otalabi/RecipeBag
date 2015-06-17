@@ -37,6 +37,10 @@ var app = angular.module('recipeApp', ['ngRoute', 'ngCookies', 'angularFileUploa
     when('/userRecipes', {
       templateUrl: 'partials/userRecipes.html',
       controller: 'userRecipeCtrl'
+    }).
+    otherwise({
+      redirectTo: '/'
     });
+
 
   });

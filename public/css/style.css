@@ -2,6 +2,10 @@ body {
   /*background-image: url('/img/body.png');*/
 }
 
+h2 {
+  font-size: 28px;
+}
+
 nav.navbar.navbar-default.navbar-fixed-top {
   background-color: black !important;
 }
@@ -75,6 +79,18 @@ header .container {
   border-radius: 3px;
 }
 
+.listmethod {
+  text-align: left;
+  font-style: 12px !important;
+}
+
+.listmethod li {
+  text-align: left;
+  font-style: italic;
+  font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: 12px !important;
+}
+
 #custom-search-input button {
   border: 0;
   background: none;
@@ -91,6 +107,10 @@ header .container {
   -moz-border-radius: 3px;
   border-radius: 3px;
   color: #D9230F;
+}
+
+#custom-search-input button .searchicon{
+  color: #ABABAB !important;
 }
 
 .search-query:focus + button {
@@ -113,6 +133,10 @@ img.img-responsive {
   display: block;
   width: 100%;
   max-width: 100%;
+}
+
+div + .no-items {
+    display: none;
 }
 
 .portfolio-item {

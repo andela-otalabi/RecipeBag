@@ -14,7 +14,6 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
       Recipes.like(recipe._id)
         .success(function(response) {
           recipe.likes = response.data.likes;
-          // $scope.sort();
         })
         .error(function(res) {
           console.log('error:', res);
@@ -65,7 +64,7 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
         prepTime: $scope.formData.prepTime,
         cookTime: $scope.formData.cookTime,
         ingredients: $scope.formData.ingredients,
-        method: ($scope.formData.method).split(','),
+        method: ($scope.formData.method).split('.'),
         imageLink: $scope.formData.imageLink
       };
       console.log("seyi");
@@ -173,7 +172,9 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
               console.log("recipe id", recipe._id);
               $scope.recipe = result['result'];
               $scope.newImage = result.file;
-           
+              $scope.recipe.method = result.result.method.split('.');
+              console.log($scope.recipe.method);
+
               $upload.upload({
                 url: '/api/recipes/' + recipe._id,
                 data: {
@@ -184,16 +185,6 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
                 $scope.recipes[index] = data.data;
                 $scope.message = data.message || data.error;
               });
-
-              // Recipes.edit(recipe._id, result).then(function(response) {
-              //   console.log(response.data);
-              // });
-              // Recipes.uploadImage('/api/recipes/'+recipe._id, $scope.recipe, {}, $scope.newImage);
-              // .progress(function(evt) {}).success(function(data) {
-              //   console.log(data.error);
-              //   $scope.message = data.message || data.error;
-              // });
-              // $scope.seyi();
             });
           });
         });
