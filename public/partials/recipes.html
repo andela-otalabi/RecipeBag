@@ -28,16 +28,16 @@
     <div class="list-wrapper">
       <div class="col-md-4 col-sm-6 portfolio-item" data-ng-repeat="recipe in recipes | filter: search">
         <div class="img-wrapper">
-          <img ng-src="{[{recipe.imageLink}]}" class="img-responsive" alt="">
+          <img ng-src="{{recipe.imageLink}}" class="img-responsive" alt="">
         </div>
-        <a href="#/showRecipeDesc/{[{recipe._id}]}">
+        <a href="#/showRecipeDesc/{{recipe._id}}">
           <div class="portfolio-caption">
             <h4 ng-bind="recipe.name"></h4></br>
           </div>
         </a>
         <span>
         <button type="button" class="glyphicon glyphicon-thumbs-up btn btn-default" ng-click="like(recipe)"></button>
-      </span>{[{recipe.likes}]} Likes
+      </span>{{recipe.likes}} Likes
       </div>
       <div class="no-items">No result found</div>
     </div>

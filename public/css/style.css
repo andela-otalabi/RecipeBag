@@ -47,6 +47,11 @@ header .container {
   box-shadow: 0 1px 0 #cfcfcf;
 }
 
+.small-loaderimage{
+  width: 20px;
+  height: 20px;
+}
+
 .wrapper {
   text-align: center;
 }

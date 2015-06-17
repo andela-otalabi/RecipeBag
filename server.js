@@ -5,9 +5,7 @@ var database = require('./config/database'),
   app = express(),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 5000,
-  mongoose = require('mongoose'), //ORM
-  consolidate = require('consolidate'),
-  cookieParser = require('cookie-parser'),
+  mongoose = require('mongoose'),
   Recipe = require('./app/models/models.recipe'),
   Recipes = require('./app/controllers/controllers.recipe'),
   User = require('./app/models/models.user'),
@@ -16,8 +14,7 @@ var database = require('./config/database'),
   methodOverride = require('method-override'),
   morgan = require('morgan'),
   multer = require('multer'),
-  path = require('path'),
-  cloudinary = require('cloudinary');
+  path = require('path');
 
 app.use(morgan('dev'));
 app.use(multer({
@@ -27,6 +24,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/public'));
 
 mongoose.connect(database.database);
 
@@ -41,17 +40,6 @@ app.use(function(req, res, next) {
 
 app.use('/api', router);
 routes(router);
-
-app.engine('server.view.html', consolidate['swig']);
-
-app.set('view engine', 'server.view.html');
-app.set('views', './public');
-app.route('/').get(function(req, res) {
-  res.render('index', {});
-});
-app.use(express.static(path.resolve('./public')));
-
-// app.get('*',Recipes.getAll);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);

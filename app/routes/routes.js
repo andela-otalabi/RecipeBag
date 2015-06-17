@@ -16,8 +16,6 @@ module.exports = function(router) {
   router.route('/users/login')
     .post(Users.userLogin);
 
-  //router.use(Users.verifyToken);
-
   router.route('/users/:user_id/recipes')
     .get(Users.getUserRecipes);
 

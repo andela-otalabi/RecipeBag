@@ -75,7 +75,10 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
           token: $rootScope.rootUser.tokengen
         },
         file: $scope.file
-      }).progress(function(evt) {}).success(function(data) {
+      }).progress(function(evt) {
+        $scope.loading = true;
+      }).success(function(data) {
+        $scope.loading = false;
         $scope.message = data.message || data.error;
       });
     };
@@ -199,12 +202,12 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
     };
 
     $scope.newRecipe = angular.copy(recipe); // creates a copy of recipe and assign it to the editted recipe
-
+    // close, but give 500ms for bootstrap to animate
     $scope.save = function() {
       close({
         result: $scope.newRecipe,
         file: $scope.file
-      }, 500); // close, but give 500ms for bootstrap to animate
+      }, 500); 
     };
 
     $scope.cancel = function() {

@@ -1,6 +1,5 @@
 var app = angular.module('recipeApp', ['ngRoute', 'ngCookies', 'angularFileUpload', 'angularModalService'])
-  .config(function($interpolateProvider, $routeProvider) {
-    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+  .config(function( $routeProvider) {
 
     $routeProvider.when('/', {
       templateUrl: 'partials/home.html',
@@ -41,6 +40,4 @@ var app = angular.module('recipeApp', ['ngRoute', 'ngCookies', 'angularFileUploa
     otherwise({
       redirectTo: '/'
     });
-
-
   });

@@ -14,15 +14,15 @@
         <img ng-src="{[{recipe.imageLink}]}" class="img-responsive" alt="">
         <div class="portfolio-caption">
           <h4 ng-bind="recipe.name"></h4>
-          <p class="text-muted">Preparation Time:{[{recipe.prepTime}]}</p>
+          <p class="text-muted">Preparation Time:{{recipe.prepTime}}</p>
           </br>
-          <p class="text-muted">Cooking Time:{[{recipe.cookTime}]}</p>
+          <p class="text-muted">Cooking Time:{{recipe.cookTime}}</p>
           </br>
           <p class="text-muted">Ingredients</p>
-          <p class="text-muted" ng-repeat="item in recipe.ingredients">{[{item}]}</p>
+          <p class="text-muted" ng-repeat="item in recipe.ingredients">{{item}}</p>
           </br>
           <p class="text-muted">Method</p>
-          <ol><li ng-repeat="method in recipe.method" class="text-muted">{[{method}]}</li></ol>
+          <ol><li ng-repeat="method in recipe.method" class="text-muted">{{method}}</li></ol>
           <a id="approve" class="btn btn-primary btn-md" ng-click="approve(recipe._id, $index)" ng-if="!recipe.approved">Click to Approve</a>
           <b class="btn btn-success btn-disabled btn-md" ng-if="recipe.approved">Approved</b>
         </div>
