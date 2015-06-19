@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row centered-form">
-    <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+    <div class="col-xs-12 col-sm-2 col-md-2"></div>
+    <div class="col-xs-12 col-sm-7 col-md-7">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Add a recipe</h3>
@@ -10,55 +11,62 @@
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="text" required="" class="form-control input-sm" placeholder="Recipe Name eg Fried rice" ng-model="formData.name">
+                  <input type="text" required class="form-control input-sm" placeholder="Recipe Name eg Fried rice" ng-model="formData.name">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="text" required="" class="form-control input-sm" placeholder="Preparation Time eg 5mins" ng-model="formData.prepTime">
+                  <input type="text" required class="form-control input-sm" placeholder="Preparation Time eg 5mins" ng-model="formData.prepTime">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="text" required="" class="form-control input-sm" placeholder="Total cook time eg 50mins" ng-model="formData.cookTime">
+                  <input type="text" required class="form-control input-sm" placeholder="Total cook time eg 50mins" ng-model="formData.cookTime">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <textarea class="form-control" required="" type="textarea" placeholder="Ingredients" ng-model="formData.ingredients"></textarea>
+                  <textarea class="form-control" required type="textarea" placeholder="Ingredients" ng-model="formData.ingredients"></textarea>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <textarea class="form-control" required="" type="textarea" placeholder="Method of preparation" ng-model="formData.method"></textarea>
+                  <textarea class="form-control" required type="textarea" placeholder="Method of preparation" data-toggle="tooltip" title="Please end each step with a fullstop (.)" ng-model="formData.method"></textarea>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="file" ng-file-select="fileSelected($files)" accept="'image/*'" required="" class="form-control input-sm" placeholder="Upload Food Image">
+                  <p class="text-muted">Upload Food Image</p>
+                  <input type="file" ng-file-select="fileSelected($files)" accept="'image/*'" required class="form-control input-sm">
                 </div>
               </div>
             </div>
             <div class="wrapper">
               <span class="group-btn">     
-                <a ng-click="createRecipe()" class="btn btn-primary btn-md">Submit</a>
+                <input type="submit" ng-click="createRecipe()"  value="Submit" class="btn btn-primary btn-md">
             </span>
             </div>
           </form>
           <img src="/img/ajax.gif" ng-show="loading" class="small-loaderimage">
-          <p class="text-muted">{{message}}</p>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function(){
+   $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+

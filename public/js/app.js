@@ -1,4 +1,4 @@
-var app = angular.module('recipeApp', ['ngRoute', 'ngCookies', 'angularFileUpload', 'angularModalService'])
+var app = angular.module('recipeApp', ['ngRoute', 'ngCookies', 'angularFileUpload', 'angularModalService', 'toastr', 'angularUtils.directives.dirPagination'])
   .config(function( $routeProvider) {
 
     $routeProvider.when('/', {

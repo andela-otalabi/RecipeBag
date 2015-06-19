@@ -9,14 +9,9 @@ app.factory('Recipes', function($http, $upload) {
       else
         return $http.get('/api/recipes?sort=true');
     },
-    edit: function(recipe_id, editDetails) {
-      return $http.put('/api/recipes/' + recipe_id, editDetails);
-    },
-    create: function(recipeData) {
-      return $http.post('/api/recipes', recipeData);
-    },
-    like: function(recipe_id){
-      return $http.put('/api/recipes/' + recipe_id + '/like');
+    like: function(recipe) {
+      console.log(recipe, 'from service');
+      return $http.post('/api/recipes/' + recipe._id + '/like', recipe);
     },
     delete: function(recipe_id) {
       return $http.delete('/api/recipes/' + recipe_id);
@@ -29,16 +24,6 @@ app.factory('Recipes', function($http, $upload) {
     },
     getOneRecipe: function(recipe_id) {
       return $http.get('/api/recipes/' + recipe_id);
-    // },
-    // uploadImage: function(formData, token, file) {
-    //   $upload.upload({
-    //     url: '/api/recipes',
-    //     data: {
-    //       data: formData,
-    //       token: token
-    //     },
-    //     file: file
-    //   });
     }
   };
 });

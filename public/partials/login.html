@@ -1,30 +1,31 @@
 <div class="container">
   <div class="row centered-form">
-    <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-      <div class="panel panel-default">
+    <div class="col-xs-12 col-sm-2 col-md-2"></div>
+    <div class="col-xs-12 col-sm-7 col-md-7">
+      <div class="panel panel-default register">
         <div class="panel-heading">
           <h3 class="panel-title">Welcome Back!</h3>
         </div>
-        {{errorMessage}}
+        <p class="errorLogin">{{errorMessage}}</p>
         <div class="panel-body">
           <form role="form">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="text" name="userName" required="" id="userName" class="form-control input-sm" placeholder="username" ng-model="username">
+                  <input type="text" name="userName" required id="userName" class="form-control input-sm" placeholder="username" ng-model="username">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                  <input type="password" name="password" required="" id="password" class="form-control input-sm" placeholder="password" ng-model="password">
+                  <input type="password" name="password" required id="password" class="form-control input-sm" placeholder="password" ng-model="password">
                 </div>
               </div>
             </div>
             <div class="wrapper">
               <span class="group-btn">     
-                <a ng-click="userLogin()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
+                <input type="submit" ng-click="userLogin()"  value="Login" class="btn btn-primary btn-md">
             </span>
             </div>
           </form>

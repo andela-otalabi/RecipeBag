@@ -5,8 +5,6 @@ var Users = require('../controllers/controllers.user');
 
 var Recipes = require('../controllers/controllers.recipe');
 
-var Comments = require('../controllers/controllers.comments');
-
 module.exports = function(router) {
 
   router.route('/users')
@@ -33,7 +31,6 @@ module.exports = function(router) {
 
   router.route('/recipes/:recipe_id')
     .get(Recipes.getOneRecipe)
-     //.put(Recipes.uploadImage, Recipes.updateRecipe)
     .post(Recipes.uploadImage, Recipes.updateRecipe)
     .delete(Recipes.deleteRecipe);
 
@@ -41,12 +38,6 @@ module.exports = function(router) {
     .put(Recipes.approveRecipe);
     
   router.route('/recipes/:recipe_id/like')
-    .put(Recipes.likeRecipe);
+    .post(Recipes.likeRecipe);
     
-  router.route('/recipes/:recipe_id/comments')
-    .get(Comments.getRecipeComments)
-    .post(Comments.addComment);
-
-  router.route('/recipes/:recipe_id/comments/:comment_id')
-    .delete(Comments.deleteComment);
 };

@@ -1,6 +1,5 @@
 var User = require('../models/models.user');
 var Recipe = require('../models/models.recipe');
-//var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jsonwebtoken');
 
 var jwtSecret = 'abcd566wgghas/ons09as9';
@@ -72,7 +71,6 @@ module.exports = {
           });
         }
       } else {
-        console.log('++++++++++++++++>>>>>user creation succcseful');
         res.json({
           message: 'User created'
         });
@@ -97,7 +95,13 @@ module.exports = {
       next();
     });
   },
-
+  /**
+   * [user login]
+   * @param  {[req]}   
+   * @param  {[res]}   
+   * @param  {Function next} next 
+   * @return {[void]}        
+   */
   userLogin: function(req, res, next) {
     User.findOne({
       username: req.body.username
@@ -136,14 +140,13 @@ module.exports = {
   },
 
   verifyToken: function(req, res, next) {
-    
+
     var token = req.body.token || req.headers['x-access-token'];
     if (!token) {
       req.data = JSON.parse(req.body.data);
       token = req.data.token;
     }
     if (token) {
-      console.log(token);
       jwt.verify(token, jwtSecret, function(err, user) {
         if (err) {
           return res.json({

@@ -16,9 +16,6 @@ module.exports = {
     });
   },
 
-  // getAll: function(req, res) {
-  //   res.sendfile('./public/index.html');
-  // },
   /**
    * [getAllRecipes gets all recipes that have been approved]
    * @param  {[req]}
@@ -27,10 +24,10 @@ module.exports = {
    */
   getAllApprovedRecipes: function(req, res) {
 
-    if(!req.query.sort) {
+    if (!req.query.sort) {
       Recipe.find({
         approved: true
-      }).exec(function(err, recipes) {
+      }).populate('user').exec(function(err, recipes) {
         if (err)
           res.send(err);
         res.json(recipes);
@@ -38,7 +35,9 @@ module.exports = {
     } else {
       Recipe.find({
         approved: true
-      }).sort({ likes: 'desc' }).exec(function(err, recipes) {
+      }).sort({
+        likes: 'desc'
+      }).exec(function(err, recipes) {
         if (err)
           res.send(err);
         res.json(recipes);
@@ -78,22 +77,91 @@ module.exports = {
       });
     });
   },
+  /**
+   * [likeRecipe lets a user like a recipe]
+   * @param  {[req]} 
+   * @param  {[res]} 
+   * @return {[void]}
+   */
+  // likeRecipe: function(req, res) {
+  //   Recipe.findById(req.params.recipe_id, function(err, recipe) {
+  //     if (err)
+  //       res.send(err);
+  //     recipe.likes += 1;
+  //     recipe.save(function(err) {
+  //       if (err)
+  //         res.send(err);
+  //       res.json({
+  //         message: 'Thanks for liking',
+  //         data: recipe
+  //       });
+  //     });
+  //   });
+  // },
+  // 
+ 
+    likeRecipe: function(req, res) {
+      var recipe = req.body;
 
-  likeRecipe: function(req, res){
-    Recipe.findById(req.params.recipe_id, function(err, recipe){
-      if(err)
-        res.send(err);
-      recipe.likes += 1; 
-      recipe.save(function(err){
-        if (err)
-          res.send(err);
-        res.json({
-          message: 'Thanks for liking',
-          data: recipe
-        });
-      });
-    });
-  },
+      Recipe.update( 
+        { _id: req.params.recipe_id}, 
+        { $set: {
+            name: req.body.name,
+            prepTime: req.body.prepTime,
+            cookTime: req.body.cookTime,
+            method: req.body.method,
+            imageLink: req.body.imageLink,
+            ingredients: req.body.ingredients,
+            approved: req.body.approved, 
+            user: req.body.user, 
+            likes: req.body.likes   
+          }
+        }, 
+        function(err, data) {
+          if(err) {
+            res.status(400).send({
+              message: err
+            });
+            return;
+          } 
+          else {
+            res.json(recipe);
+          }
+        }
+      )
+    },
+
+  // likeRecipe: function(req, res) {
+  //   var recipe = req.recipe,
+  //     like = req.body;
+  //   like.user = req.user;
+  //   var hasLiked = false;
+
+  //   console.log(req, 'hhrhr');
+  //   for (var i = 0; i < recipe.likes.length; i++) {
+  //     if (req.user.id === recipe.likes[i].user.toString()) {
+  //       hasLiked = true;
+  //       break;
+  //     }
+  //   }
+  //   if (!hasLiked) {
+  //     recipe.likes.push(like);
+
+  //     recipe.save(function(err) {
+  //       if (err) {
+  //         return res.status(400).send({
+  //           message: errorHandler.getErrorMessage(err)
+  //         });
+  //       } else {
+  //         res.jsonp(recipe);
+  //       }
+  //     });
+  //   } else {
+  //     return res.send(400, {
+  //       message: 'you have already liked this recipe before'
+  //     });
+  //   }
+  // },
 
   /**
    * [createRecipe allows user post a recipe]
@@ -114,21 +182,31 @@ module.exports = {
       });
     });
   },
-
+  /**
+   * [uploadImage description]
+   * @param  {[req]}   req  
+   * @param  {[res]}   res  
+   * @param  {Function next} 
+   * @return {[void]}        
+   */
   uploadImage: function(req, res, next) {
     console.log(req.files);
-    cloudinary.uploader.upload(req.files.file.path, function(result) {
-      console.log('sagsdgasdgsasdgadse', result.url);
-      if (result.url) {
-        req.imageLink = result.url
-        next()
-      } else {
-        res.json({
-          error: 'You need to upload a picture to create the recipe, Please make sure you are connected to the internet to upload a picture'
-        });
-      }
-    })
+    if (req.files.file) {
+      cloudinary.uploader.upload(req.files.file.path, function(result) {
+        if (result.url) {
+          req.imageLink = result.url
+          next()
+        } else {
+          res.json({
+            error: 'You need to upload a picture to create the recipe, Please make sure you are connected to the internet to upload a picture'
+          });
+        }
+      });
+    } else {
+      next()
+    }
   },
+
   /*
    * [updateRecipe description]
    * @param  {[type]}
@@ -136,21 +214,20 @@ module.exports = {
    * @return {[type]}
    */
   updateRecipe: function(req, res) {
-    console.log(req.imageLink);
     Recipe.findById(req.params.recipe_id, function(err, recipe) {
-      //console.log(req.body);
       req.data = JSON.parse(req.body.data);
-       
+
       if (err)
         res.send(err);
-      //recipe.imageLink = req.imageLink;
       recipe.name = req.data.data.name;
       recipe.prepTime = req.data.data.prepTime;
       recipe.cookTime = req.data.data.cookTime;
       recipe.ingredients = req.data.data.ingredients;
       recipe.method = req.data.data.method;
       recipe.user = req.data.data.user;
-      recipe.imageLink = req.imageLink;
+      if (req.imageLink) {
+        recipe.imageLink = req.imageLink;
+      }
       recipe.save(function(err) {
         if (err)
           res.send(err);

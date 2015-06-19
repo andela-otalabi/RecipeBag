@@ -19,11 +19,7 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }/*,
-  isAdmin: {
-    type: Boolean,
-    default: false
-  }*/
+  }
 });
 
 // hash the password before the user is saved

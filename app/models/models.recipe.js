@@ -4,6 +4,19 @@ var Schema = mongoose.Schema;
  * [RecipeSchema description]
  * @type {Schema}
  */
+
+var LikeSchema = new Schema({
+  likes: {
+    type: Number,
+    default:''
+  },
+
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
+});
+
 var RecipeSchema = new Schema({
   name: {
     type: String,
@@ -12,9 +25,6 @@ var RecipeSchema = new Schema({
   approved: {
     type: Boolean,
     default: false
-  },
-  category: {
-    type: String
   },
   prepTime: {
     type: String
@@ -25,10 +35,9 @@ var RecipeSchema = new Schema({
   ingredients: [{
     type: String
   }],
-  imageLink: String,
-  likes: {
-    type: Number,
-    default: 0
+  imageLink: {
+    type: String,
+    default: 'img/logo.png'
   },
   method: [{
     type: String
@@ -37,7 +46,11 @@ var RecipeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  }
+  },
+  likes: []
 });
 
+
+
 module.exports = mongoose.model('Recipe', RecipeSchema);
+// module.exports = mongoose.model('Like', LikeSchema);
