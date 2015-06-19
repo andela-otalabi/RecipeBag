@@ -14,7 +14,7 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
     }
 
     $scope.currentPage = 1;
-    $scope.pageSize = 9;
+    $scope.pageSize = 6;
 
     $scope.likeRecipe = function(recipe) {
       var cookie = $cookies.get('user');
