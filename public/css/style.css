@@ -1,6 +1,5 @@
 body {
-  /*background-image: url('/img/body.png');*/
-  
+  background-color: #f7f7f7;
   margin: 0 0 100px;
 }
 
@@ -31,6 +30,7 @@ footer {
   height: 100px;
   width: 100%;
   background-color: #FFD055;
+  line-height: 40px;
 }
 
 @media screen and (max-width: 600px) {
