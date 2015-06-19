@@ -1,4 +1,4 @@
-app.controller('recipesController', function($scope, $http, $location, $cookies, Recipes, $rootScope) {
+app.controller('recipesController', function($scope, $http, $location, $cookies, Recipes, $rootScope, toastr) {
     $scope.getRecipes = function() {
       Recipes.getApprovedRecipes()
         .success(function(data) {
