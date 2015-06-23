@@ -36,14 +36,15 @@
           <img ng-src="{{recipe.imageLink}}" class="img-responsive" alt="">
         </div>
         
-          <div class="portfolio-caption">
+          <div class="portfolio-caption2">
             <h4 ng-bind="recipe.name"></h4></br>
             <p class="text-muted">By {{recipe.user.username}}</p>
           </div>
         </a>
         <span class="likes">
-          <button type="button" class="glyphicon glyphicon-thumbs-up btn btn-default" ng-click="likeRecipe(recipe)" ng-show="rootUser"></button>
-      </span><div class="likes">{{recipe.likes.length}} Likes</div>
+          <button type="button" class="glyphicon glyphicon-thumbs-up btn btn-default pull-left" ng-click="likeRecipe(recipe)" ng-show="rootUser"></button>
+          <div class="likes pull-right">{{recipe.likes.length}} Likes</div>
+        </span>
       </div>
       <div class="no-items">No result found</div>
     </div>

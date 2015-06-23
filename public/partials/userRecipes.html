@@ -16,7 +16,7 @@
           <div class="img-wrapper">
             <img ng-src="{{recipe.imageLink}}" class="img-responsive" alt="">
           </div>
-          <div class="portfolio-caption">
+          <div class="portfolio-caption1">
             <h2 ng-bind="recipe.name"></h2>
             <p class="text-muted">Preparation Time:{{recipe.prepTime}}</p>
             <p class="text-muted">Cooking Time:{{recipe.cookTime}}</p>
@@ -26,9 +26,9 @@
             <ol class="listmethod">
               <li ng-repeat="method in recipe.method" class="text-muted">{{method}}</li>
             </ol>
-            <a id="approve" class="btn btn-danger btn-md" ng-click="deleteRecipe(recipe._id, $index)" ng-show='rootUser'>Delete</a>
-            <a id="approve" href="" class="btn btn-success btn-md" ng-click="editRecipe(recipe, $index)" ng-show='rootUser'>Edit</a>
           </div>
+          <a id="approve" class="btn btn-danger btn-md" ng-click="deleteRecipe(recipe._id, $index)" ng-show='rootUser'>Delete</a>
+          <a id="approve" href="" class="btn btn-success btn-md" ng-click="editRecipe(recipe, $index)" ng-show='rootUser'>Edit</a>
         </div>
       </div>
     </div>
