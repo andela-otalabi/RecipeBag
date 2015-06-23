@@ -5,6 +5,7 @@
         <span>
           <button type="button" class="btn btn-primary" ng-click="sort()">Sort By Likes</button>
         </span>
+      
       </div>
       <div class="col-md-4 col-sm-4 portfolio-item">
         <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
@@ -29,19 +30,20 @@
   </div>
   <div class="row">
     <div class="list-wrapper">
-      <div class="col-md-4 col-sm-6 portfolio-item" dir-paginate="recipe in recipes | filter: search | itemsPerPage: pageSize" current-page="currentPage">
+      <div class="col-md-3 col-sm-6 portfolio-item" dir-paginate="recipe in recipes | filter: search | itemsPerPage: pageSize" current-page="currentPage">
+      <a href="#/showRecipeDesc/{{recipe._id}}">
         <div class="img-wrapper">
           <img ng-src="{{recipe.imageLink}}" class="img-responsive" alt="">
         </div>
-        <a href="#/showRecipeDesc/{{recipe._id}}">
+        
           <div class="portfolio-caption">
             <h4 ng-bind="recipe.name"></h4></br>
             <p class="text-muted">By {{recipe.user.username}}</p>
           </div>
         </a>
-        <span>
+        <span class="likes">
           <button type="button" class="glyphicon glyphicon-thumbs-up btn btn-default" ng-click="likeRecipe(recipe)" ng-show="rootUser"></button>
-      </span>{{recipe.likes.length}} Likes
+      </span><div class="likes">{{recipe.likes.length}} Likes</div>
       </div>
       <div class="no-items">No result found</div>
     </div>

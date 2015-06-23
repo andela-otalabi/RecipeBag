@@ -35,14 +35,16 @@ module.exports = {
     } else {
       Recipe.find({
         approved: true
-      }).sort({
-        likes: 'desc'
+      }).populate('user').sort({
+        likes_count: 'desc'
       }).exec(function(err, recipes) {
         if (err)
           res.send(err);
         res.json(recipes);
       });
+
     }
+
   },
   /**
    * [getOneRecipe gets a selected recipe]
@@ -114,7 +116,8 @@ module.exports = {
             ingredients: req.body.ingredients,
             approved: req.body.approved, 
             user: req.body.user, 
-            likes: req.body.likes   
+            likes: req.body.likes,
+            likes_count: req.body.likes.length  
           }
         }, 
         function(err, data) {

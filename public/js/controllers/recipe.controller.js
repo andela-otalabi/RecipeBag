@@ -1,4 +1,5 @@
 app.controller('recipesController', function($scope, $http, $location, $cookies, Recipes, $rootScope, toastr) {
+
     $scope.getRecipes = function() {
       Recipes.getApprovedRecipes()
         .success(function(data) {
@@ -40,6 +41,7 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
       Recipes.getApprovedRecipes(true)
         .success(function(data) {
           $scope.recipes = data;
+          console.log($scope.recipes);
         })
         .error(function(data) {});
     };
@@ -56,6 +58,10 @@ app.controller('recipesController', function($scope, $http, $location, $cookies,
         $scope.recipes = res;
       })
       .error(function(res) {});
+
+      $scope.back = function(){
+        $location.path('/recipes');
+      }
   })
   .controller('recipeController', function($scope, $http, $rootScope, $location, $cookies, $upload, toastr, Recipes) {
     var cookie = $cookies.get('user');

@@ -47,7 +47,10 @@ var RecipeSchema = new Schema({
     ref: 'User',
     required: true
   },
-  likes: []
+  likes: [],
+  likes_count: {
+    type: Number
+  }
 });
 
 
