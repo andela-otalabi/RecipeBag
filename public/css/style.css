@@ -199,6 +199,7 @@ a.andela:hover{
 
 .portfolio-caption2 {
   height: 100px;
+  overflow: scroll;
 }
 
 .errorLogin {
