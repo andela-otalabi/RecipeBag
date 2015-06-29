@@ -1,5 +1,5 @@
 body {
-  background-color: #f7f7f7;
+  background-color: #EAF0F2;
   margin: 0 0 100px;
 }
 
@@ -29,7 +29,7 @@ footer {
   bottom: 0 !important;
   height: 100px;
   width: 100%;
-  background-color: #FFD055;
+  background-color: #fed136;
   line-height: 40px;
 }
 
@@ -181,6 +181,7 @@ a.andela:hover{
   padding: 10px 0;
   background-color: black;
   margin: 0 auto;
+
 }
 
 #portfolio .portfolio-item .portfolio-caption1, #portfolio .portfolio-item .portfolio-caption2 {
@@ -198,8 +199,9 @@ a.andela:hover{
 }
 
 .portfolio-caption2 {
-  height: 100px;
-  overflow: scroll;
+  height: 100x;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 2px 2px;
 }
 
 .errorLogin {
@@ -210,8 +212,11 @@ a.andela:hover{
 
 .likes {
   margin: 0 auto;
+  margin-top: -20px;
   text-align: left;
   line-height: 34px;
+  color: black;
+  font-family: roboto;
 }
 
 img.img-responsive {

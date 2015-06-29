@@ -9,7 +9,6 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">{{recipes.name}}</h2>
       </div>
-    </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 portfolio-item">
         <div class="portfolio-hover">
@@ -19,9 +18,9 @@
         <img ng-src="{{recipes.imageLink}}" class="img-responsive" alt="">
       </div>
       <div class="col-md-6 col-sm-6 portfolio-item">
-        <p class="text-muted">Preparation Time:{{recipes.prepTime}}</p>
+        <p class="preparation">Preparation Time: {{recipes.prepTime}}</p>
         </br>
-        <p class="text-muted">Cooking Time:{{recipes.cookTime}}</p>
+        <p class="text-muted">Cooking Time: {{recipes.cookTime}}</p>
         </br>
         <p class="text-muted">Ingredients</p>
         <p class="text-muted" ng-repeat="item in recipes.ingredients">{{item}}</p>

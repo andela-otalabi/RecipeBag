@@ -9,8 +9,14 @@ body {
   font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.text-muted {
-  color: #777;
+.text-muted,
+.text-muted2 {
+  color: black;
+  font-family: sans-serif;
+}
+
+.text-muted2 {
+  margin-top: -20px;
 }
 
 .text-primary {
@@ -32,6 +38,10 @@ a:focus,
 a:active,
 a.active {
   outline: 0;
+}
+
+a.eachRecipe:hover {
+  text-decoration: none;
 }
 
 a {
@@ -56,6 +66,13 @@ h6 {
   font-weight: 700;
 }
 
+.heading {
+  font-family: roboto;
+  color: black;
+  margin: 2px;
+  padding: 2px;
+}
+
 .img-centered {
   margin: 0 auto;
 }
@@ -66,6 +83,10 @@ h6 {
 
 .bg-darkest-gray {
   background-color: #222;
+}
+
+.fa-heart {
+  margin-top: -10px;
 }
 
 .btn-primary {
@@ -392,8 +413,6 @@ section h3.section-subheading {
 #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
   margin: 0;
 }
-
-
 
 #portfolio .portfolio-item .portfolio-caption h4 {
   margin: 0;
